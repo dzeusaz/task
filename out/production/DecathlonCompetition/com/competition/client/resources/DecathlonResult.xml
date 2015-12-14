@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="appearance.xsl"?><Decathlon>
+    <Result>
+        <Place>1 - 4</Place>
+        <Name>Siim Susi</Name>
+        <Score>3099</Score>
+    </Result>
+    <Result>
+        <Place>1 - 2</Place>
+        <Name>Jaana Lind</Name>
+        <Score>3099</Score>
+    </Result>
+    <Result>
+        <Place>1 - 3</Place>
+        <Name>Anti Loop</Name>
+        <Score>3099</Score>
+    </Result>
+    <Result>
+        <Place>1 - 4</Place>
+        <Name>Beata Kana</Name>
+        <Score>3099</Score>
+    </Result>
+</Decathlon>
