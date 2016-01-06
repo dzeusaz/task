@@ -1,4 +1,4 @@
-package com.competition.client;
+package com.competition.client.finalResultCreation;
 
 /**
  * Created by Kestutis on 2015.12.13.

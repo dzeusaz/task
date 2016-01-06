@@ -1,43 +1,49 @@
-package com.competition.client;
+package com.competition.client.outputData;
 
-
-import java.io.File;
-import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.Transformer;
+import com.competition.client.finalResultCreation.DecathlonFinalResultData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-/**
- * Created by Kestutis on 2015.12.12.
- */
-public class CreateXML {
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import java.util.List;
 
-    public CreateXML(List<DecathlonFinalResultData> resultData, String savePath){
+/**
+ * Created by Kestutis on 2016.01.06.
+ */
+public class WriteDataAsXSL extends WriteData{
+
+    String outputPath;
+
+    public WriteDataAsXSL(String outputPath, DataWriterAPI dataWriteAPI) {
+        super(dataWriteAPI);
+        this.outputPath = outputPath;
+
+    }
+
+    @Override
+    public void writeDataAsXSL(List<DecathlonFinalResultData> decathlonFinalResultData) {
+
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            Document document = initXML(docBuilder, resultData);
+            Document document = initXML(docBuilder, decathlonFinalResultData);
             Element root = document.getDocumentElement();
 
             Node node = document.createProcessingInstruction
                     ("xml-stylesheet", "type=\"text/xsl\" href=\"appearance.xsl\"");
             document.insertBefore(node, root);
-
             DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(new File(savePath));
-
 
             transformer.setOutputProperty
                     (OutputKeys.OMIT_XML_DECLARATION, "no");
@@ -47,7 +53,7 @@ public class CreateXML {
                     ("{http://xml.apache.org/xslt}indent-amount", "4");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
-            transformer.transform(source, result);
+            transformer.transform(source, dataWriteAPI.writeDataToStream(this.outputPath));
 
 
         }catch (ParserConfigurationException e){
@@ -55,6 +61,8 @@ public class CreateXML {
         }catch (TransformerException e){
             e.printStackTrace();
         }
+
+
     }
 
     private Document initXML(DocumentBuilder docBuilder, List<DecathlonFinalResultData> resultData){
@@ -88,6 +96,6 @@ public class CreateXML {
             athlete.appendChild(athleteTotalScore);
 
         }
-       return document;
+        return document;
     }
 }

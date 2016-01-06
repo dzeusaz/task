@@ -42,4 +42,7 @@ public final class Constants {
     public static String TIME_EVENT = "TIME";
     public static String RANGE_EVENT = "RANGE";
 
+    public static String INPUT_PATH = "src/com/competition/client/resources/Decathlon_input.txt";
+    public static String OUTPUT_PATH = "src/com/competition/client/resources/DecathlonResult.xml";
+
 }

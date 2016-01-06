@@ -14,5 +14,6 @@ public class GetDecathlonFinalResultTest {
     @Test
     public void testGetDecathlonFinalResult() throws Exception {
 
+
     }
 }

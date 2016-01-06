@@ -1,5 +1,7 @@
-package com.competition.client;
+package com.competition.client.finalResultCreation;
 
+import com.competition.client.Constants;
+import com.competition.client.inputData.DecathlonData;
 import com.competition.client.ScoreCounter.CountScore;
 import com.competition.client.ScoreCounter.CountScoreByEvent;
 
@@ -13,11 +15,11 @@ public class GetDecathlonFinalResult {
     private List<DecathlonData> decathlonData;
     private List<DecathlonFinalResultData> finalResult = new ArrayList<>();
     private Map<String, Integer> athleteTotalScore = new HashMap<>();
+    private Map<Integer, Integer> places = new HashMap<>();
 
     public GetDecathlonFinalResult(List<DecathlonData> decathlonData){
         this.decathlonData = decathlonData;
         countTotalScore();
-
         finalDecathlonResultData(getPlace(athleteTotalScore));
     }
 
@@ -75,11 +77,11 @@ public class GetDecathlonFinalResult {
         for(String name : athleteTotalScore.keySet()){
             score1 = athleteTotalScore.get(name);
             if(score1 != score2){
+                places.put(position, raiseNextPosition);
                 position++;
-                raiseNextPosition =0;
+                raiseNextPosition = 0;
             }else{
                 raiseNextPosition++;
-                finalResult.get(position-1).setSharePositionWith(raiseNextPosition);
             }
             finalResult.add(new DecathlonFinalResultData(name, athleteTotalScore.get(name), position, raiseNextPosition));
             score2 = athleteTotalScore.get(name);
